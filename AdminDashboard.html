@@ -1,0 +1,1748 @@
+    <!Doctype html>
+    <html>
+        <head>
+             <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Admin Dashboard</title>
+            <!-- BOOTSTRAP STYLES-->
+            <link href="assets/css/bootstrap.css" rel="stylesheet" />
+            
+             <!-- FONTAWESOME STYLES-->
+            <link href="assets/css/font-awesome.css" rel="stylesheet" />
+            <link href="assets/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+            
+             <!-- MORRIS CHART STYLES-->
+            <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+            
+                <!-- CUSTOM STYLES-->
+            <link href="assets/css/custom.css" rel="stylesheet" />
+            
+            <!-- Admin Table STYLES-->
+            <link href="assets/css/admintable.css" rel="stylesheet" />
+            <link href="assets/css/table-responsive.css" rel="stylesheet">    
+           
+            <link href="assets/css/style.css" rel="stylesheet" />
+            
+             <!-- GOOGLE FONTS-->
+           <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+            
+            <!-- CALENDAR-->
+            
+            
+    <!--external css-->
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
+   
+    
+    
+    <!-- Custom styles for this template -->
+  
+            
+            <!-- CALENDAR-->
+            
+            
+            
+            <style>
+                h5{
+                    color:#fff;
+                    font-size: 20px;                
+                }
+                hr{
+                    color:#6C496F;
+                    border-color: #6C496F;
+                    background-color: #6C496F;
+                    border-width: 3px;
+                }
+                    
+                
+            </style>
+            <script type="text/javascript">
+               
+                if (sessionStorage.getItem("Login") != "true" || sessionStorage.getItem("Role") != "Admin") {                       
+                    window.location="http://localhost:7000/index.html";
+                 }            
+            </script>
+            
+        </head>
+
+        <body>
+            <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top header" role="navigation" style="margin-bottom: 0">
+            <div class="navbar- header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <a class="navbar-brand companyLogo" href="EmployeeDashboard.html"></a>
+                </div>
+                <div style="color:white; padding:15px 50px 5px 50px; float:right; font:16px;">
+                    <!--[[can show last acess here..!]]-->  &nbsp;
+                    <a id="tempLock" href="lock_screen.html"><i class="fa fa-lock fa-2x"></i></a> &nbsp;
+                <a class="btn btn-danger square-btn-adjust" id="logoutBtn">Logout</a>
+                </div>
+            </nav>
+
+             <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                        <li class="text-center">
+                            <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                        </li>
+                        <li>
+                            <a class="active-menu"  href="AdminDashboard.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        </li>
+                    
+                        
+                    
+                        <li>
+                            <a href="#message-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-envelope fa-3x"></i> Messages<span class="fa arrow"></span></a>
+                            <ul id="message-menu" class="nav nav-second-level nav-list collapse">
+                                <li>
+                                    <a data-toggle="modal" href="#NewMessageModal" id="newMessageModalBtn"><i class="fa fa-pencil fa-2x"></i>New</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#viewMessageModal" id="viewInboxBtn"><i class="fa fa-inbox fa-2x"></i>Inbox</a>
+                                </li>                                
+                          </ul>
+                    
+                        </li>
+                    
+                        <li>
+                            <a href="#user-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-users fa-3x"></i>&nbsp;&nbsp; Users<span class="fa arrow"></span></a>
+                            <ul id="user-menu" class="nav nav-second-level nav-list collapse">
+                                <li>
+                                    <a data-toggle="modal" href="#addUserModal"><i class="fa fa-plus fa-2x"></i>Add</a>
+                                </li>
+                                 <li>
+                                    <a data-toggle="modal" id="assignManagerModalBtn" href="#assignManagerModal"><i class="fa fa-slideshare fa-2x"></i>Assign Manager</a>                                                    
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#viewUserModal"><i class="fa fa-file-text fa-2x"></i>View</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" id="updateUserModalBtn"  href="#updateUserModal"><i class="fa fa-pencil fa-2x"></i>Update</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#deleteUserModal"><i class="fa fa-times fa-2x"></i>Delete</a>                                                    
+                                </li>
+                            </ul>
+                        </li>  
+
+                        <li>
+                            <a href="#company-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-building fa-3x"></i> Company<span class="fa arrow"></span></a>
+                            <ul id="company-menu" class="nav nav-second-level nav-list collapse">
+                                <li>
+                                    <a data-toggle="modal" id="addCompanyModalBtn" href="#addCompanyModal"><i class="fa fa-plus fa-2x"></i>Add</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#viewCompanyModal"><i class="fa fa-file-text fa-2x"></i>View</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" id="updateCompanyModalBtn" href="#updateCompanyModal"><i class="fa fa-pencil fa-2x"></i>Update</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#deleteCompanyModal"><i class="fa fa-times fa-2x"></i>Delete</a>
+                                </li>
+                          </ul>
+                        </li>
+                    
+                        
+                        <li>
+                            
+                           
+                     <!-- CALENDAR-->
+                        <div id="calendar" class="mb">
+                            <div class="panel green-panel no-margin">
+                                <div class="panel-body">
+                                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                        <div class="arrow"></div>
+                                        <h3 class="popover-title" style="disadding: none;"></h3>
+                                        <div id="date-popover-content" class="popover-content"></div>
+                                    </div>
+                                    <div id="my-calendar" class="calendar-border"></div>
+                                </div>
+                            </div>
+                        </div><!-- / calendar -->
+                           
+          
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+             <div id="page-wrapper" >
+                <div id="page-inner">
+                    <div class="row" id="weather-header" >
+                        <div >
+                        <div class="col-md-10">
+                         <h2>Admin Dashboard</h2>   
+                            <h5>Welcome <b id="nameX"></b>, Love to see you back.</h5>
+                        </div>
+                        <div class="col-md-2">
+                         <p style="display: block !important; width: 160px; text-align: center; font-family: sans-serif; font-size: 12px;"><a href="http://weathertemperature.com/forecast/?q=Delhi,Delhi,India" title="Delhi, Delhi, India Weather Forecast" onclick="this.target='_blank'"><img src="http://widget.addgadgets.com/weather/v1/?q=Delhi,Delhi,India&amp;s=2&amp;u=2" alt="Weather temperature in Delhi, Delhi, India" width="160" height="102" style="border:0" /></a><br /><a href="http://weathertemperature.com/" title="Get latest Weather Forecast updates" style="font-family: sans-serif; font-size: 12px" onclick="this.target='_blank'">Weather Forecast</a></p>
+                         
+                            </div>
+                            </div>
+                        <hr/>
+                    </div>   
+                    <hr style="color:#6C496F;"/>
+                     <!-- /. ROW  -->
+                    
+                    
+                    
+                    <div class="row">
+                        <br>
+                <div class="col-md-3 col-sm-6 col-xs-6" >           
+			<div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-red set-icon">
+                    <i class="fa fa-envelope-o"></i>
+                </span>
+                <div class="text-box" >
+                    <p class="main-text" id="notifMessage">0 </p>
+                    <p class="text-muted">Messages</p>
+                </div>
+             </div>
+		     </div>
+                    <div class="col-md-3 col-sm-6 col-xs-6">           
+			<div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-green set-icon">
+                    <i class="fa fa-bars"></i>
+                </span>
+                <div class="text-box" >
+                    <p class="main-text" id="notifTask">0 Task</p>
+                    <p class="text-muted">Pending</p>
+                </div>
+             </div>
+		     </div>
+                   <div class="col-md-3 col-sm-6 col-xs-6">           
+			<div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-blue set-icon">
+                    <i class="fa fa-bell-o"></i>
+                </span>
+                <div class="text-box" >
+                    <p class="main-text" id="notifVisit">0 Visits</p>
+                    <p class="text-muted">Scheduled</p>
+                </div>
+             </div>
+		     </div>
+                   <div class="col-md-3 col-sm-6 col-xs-6">           
+			<div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-brown set-icon">
+                    <i class="fa fa-database"></i>
+                </span>
+                <div class="text-box" >
+                    <p class="main-text" id="notifDb">0 Mb</p>
+                    <p class="text-muted">Database</p>
+                </div>
+             </div>
+		     </div>
+			</div>
+                    
+                      <!--//////////////////////////////////////////////s//////////TABLE/////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<br/><br/><br/>
+                 <div class="row mt">
+                    <div class="col-lg-12">
+                          <div class="content-panel">
+                              <h6><hr style="color:#43b1a9;background-color:#43b1a9;height:3px;border: none" /><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;Table Infos<hr style="color:#43b1a9;background-color:#43b1a9;height:3px;border: none" /></h6><br/><br/>
+                              <section id="no-more-tables">
+                                  <table class="table table-bordered table-striped table-condensed cf dbTables">
+                                      <thead class="cf">
+                                      <tr id="adminTableHeader">
+                                          <th>S. No</th>
+                                          <th>Table Name</th>
+                                          <th class="numeric">Number of Enteries</th>
+                                          <th class="numeric">Size of Table(in MB)</th>                                          
+                                      </tr>
+                                      </thead>
+                                      <tbody id="adminDashboardTable">
+                                          <!--<tr class="oddRow">
+                                          <td data-title="S. No">1</td>
+                                          <td data-title="Company">User Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                    
+                                       <tr>
+                                          <td data-title="S. No">2</td>
+                                          <td data-title="Company">Company Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr class="oddRow">
+                                          <td data-title="S. No">3</td>
+                                          <td data-title="Company">Manager Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr>
+                                          <td data-title="S. No">4</td>
+                                          <td data-title="Company">Visit Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr class="oddRow">
+                                          <td data-title="S. No">5</td>
+                                          <td data-title="Company">Task Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>      -->                               
+                                      </tbody>
+                                  </table>
+                              </section>
+                          </div><!-- /content-panel -->
+                      </div><!-- /col-lg-12 -->
+                  </div><!-- /row -->
+
+
+
+
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                    
+        
+                    
+                 </div>
+           </div>
+        </div>
+            
+            
+            
+            
+<!---------------------------------------------------------------------------------------------------MODALS---------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+   
+            
+            
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////TABLE MODAL////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+            <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;TABLES<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" id="closeTableModal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" id="viewAllUserTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewUserHeader">
+                                                                <th>Name</th>
+                                                                <th>Sex</th>
+                                                            <!--    <th>DOB</th>-->
+                                                                <th>Age</th>
+                                                               <!-- <th>Address</th>
+                                                                <th>City</th>
+                                                                <th>State</th>
+                                                                <th>Mobile</th>-->
+                                                                <th>Email</th>
+                                                                <th>Role</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewAllUserTableBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+ <!--------------------------------------TABLE FOR USERS BY ROLE---------------------------------------------------------------------------------->        
+                                  <div class="row mt" id="viewAllUserByRoleTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewUserHeader">
+                                                                <th>Name</th>
+                                                                <th>Sex</th>
+                                                           <!--     <th>DOB</th>-->
+                                                                <th>Age</th>
+                                                        <!--        <th>Address</th>
+                                                                <th>City</th>
+                                                                <th>State</th>
+                                                                <th>Mobile</th>-->
+                                                                <th>Email</th>
+                                                            <!--    <th>Role</th>-->
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewAllUserByRoleTableBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+<!--------------------------------------TABLE FOR All COMPANIES------------------------------------------------------------------------------------------>  
+                                            <div class="row mt" id="viewAllCompanyTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewCompanyHeader">
+                                                                <th>Company Name</th>
+                                                                <th>City</th>                                                          
+                                                                <th>Client Name</th>                                                              
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewAllCompanyTableBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+               
+                
+                
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////COMPLETE USER DETAILS MODAL/////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+            <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="completeUserDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-user fa-2x"></i>&nbsp;&nbsp;USER Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" id="closeCompleteUserDetailModal" data-toggle="modal" data-target="#tableModal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" ><!--id="viewAllUserTable" style="display:none;"-->
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="completeUserDetail" >
+                                                        <!--<tbody id="completeUserDetail"></tbody>  -->
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>                                
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+        </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////USER by USERNAME DETAILS MODAL/////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="usernameDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-user fa-2x"></i>&nbsp;&nbsp;USER Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" id="closeCompleteUserDetailModal" data-toggle="modal" data-target="#viewUserModal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" ><!--id="viewAllUserTable" style="display:none;"-->
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="userByUserNameDetail" >
+                                                        <!--<tbody id="completeUserDetail"></tbody>  -->
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>                                
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+        </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->       
+                
+                
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////MESSAGE////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->            
+                
+                
+                
+<!--////////////////////////////////////////////////////New Message MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="NewMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>New Message<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="newMessage">                                                                   
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <select type="text" class="form-control" id="toMessage" >
+                                                    
+                                               </select>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-briefcase"></i><label>&nbsp;Subject&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" placeholder="Enter Name (max. 50 Char)" id="MsgSubject" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;Message  </label></span>
+                                                <textarea rows='7' class="form-control" cols="40" placeholder="Enter Address (max. 1000 Char)" id="message" required></textarea>
+                                        </div><br/>
+                                        <p id="messgaeMsg"></p>          
+                                        <div>
+                                             <input type="button"  value="Send" class="submitBtn" id="addMessgaeBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+    
+
+                
+<!--////////////////////////////////////////////////////View Message MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Inbox<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                         <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                   
+                                    <div class="row mt" id="viewInboxTable" >
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewInboxHeader">
+                                                                <th>From</th>
+                                                                <th>Subject</th>                                                          
+                                                                <th>Date</th>                                                              
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewInboxBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+<!--////////////////////////////////////////////////////View Inbox Message MODAL///////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewInboxMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View Message<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal" data-target="#viewMessageModal" ></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="viewInboxMessage">                                                                   
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" id="viewFromMessage" disabled >
+                                                    
+                                               
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-briefcase"></i><label>&nbsp;Subject&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" placeholder="Enter Name (max. 50 Char)" id="viewMsgSubject" required disabled >
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;Message  </label></span>
+                                                <textarea rows='7' class="form-control" cols="40" placeholder="Enter Address (max. 1000 Char)" id="viewMessage" required disabled></textarea>
+                                        </div><br/>                                                
+                                       
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////USER////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+            
+
+  <!--////////////////////////////////////////////////////ADD USER MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 >Add a New User<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="addUser">
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-tag"></i><label>&nbsp;UserName</label></span>
+                                                <input type="text" class="form-control" id="UserName" placeholder="Enter UserName (max. 20 Char)" autofocus="on" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="Name" class="form-control" placeholder="Enter Name (max. 30 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group" >
+                                                <span class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i><label>&nbsp;&nbsp;Gender&nbsp;</label></span>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="Sex" name="Sex" value="Male"><x style="color:#6D4A70">&nbsp;Male</x> &nbsp;&nbsp;&nbsp;
+                                                <input type="radio" id="Sex" name="Sex" value="Female"><x style="color:#6D4A70">&nbsp;Female</x>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-puzzle-piece"></i><label>&nbsp;&nbsp;&nbsp;DOB&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="date" class="form-control" id="DOB" placeholder="Enter Date of Birth" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-home"></i><label>&nbsp;Address&nbsp;</label></span>
+                                                <textarea rows='3' id="Address" class="form-control" cols="40" placeholder="Enter Address (max. 100 Char)" required></textarea>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-compass"></i><label>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="City" class="form-control" placeholder="Enter City (max. 30 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-crosshairs"></i><label>&nbsp;&nbsp;State&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="State" class="form-control" placeholder="Enter State (max. 30 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-mobile"></i><label>&nbsp;&nbsp;Mobile&nbsp;</label></span>
+                                                <input type="text" id="Mobile" class="form-control" placeholder="Mobile Number (Don't add 0 or +91)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;&nbsp;Email&nbsp;&nbsp;</label></span>
+                                                <input type="email" id="Email" class="form-control" placeholder="Enter Email-id (max. 50 Chara)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-laptop"></i><label>&nbsp;&nbsp;&nbsp;Role&nbsp;&nbsp;</label></span>
+                                                <select name="Role" id="Role" class="form-control">
+                                                    <option value="Client">Client</option>
+                                                    <option value="Employee" selected>Employee</option>
+                                                    <option value="Manager">Manager</option>
+                                               </select>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i><label>&nbsp;Password</label></span>
+                                                <input type="password" id="Password" class="form-control" placeholder="Enter Password (max. 15 Char)" required>
+                                        </div>    <br/>
+                                     
+                                        <p id=userAdded></p>
+                                        <div>
+                                             <input type="button"  value="Submit" class="submitBtn" id="addUserBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                
+                
+               
+<!--////////////////////////////////////////////////////ASSIGN MANAGER MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="assignManagerModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Assign Manager<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="assignManager">
+                                        
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-child"></i><label>&nbsp;&nbsp;Employee&nbsp;</label></span>
+                                                <select name="Employee" id="managerAssignEmployee" class="form-control">
+                                                    
+                                               </select>
+                                        </div><br/>
+                                     
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-child"></i><label>&nbsp;&nbsp;Manager&nbsp;</label></span>
+                                                <select name="Manager" id="managerAssignManager" class="form-control">
+                                                    
+                                               </select>
+                                        </div><br/>                                                                  
+                                        <p id="addRelationMessage"></p>
+                                                    
+                                        <div>
+                                             <input type="button"  value="Assign" class="submitBtn" id="assignManagerBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+            
+            
+<!--////////////////////////////////////////////////////Update User MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Update User's Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="updateParticularUser">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;UserName &nbsp;&nbsp;</label></span>
+                                                             <input type="text" class="form-control"  id="uName" placeholder="Enter UserName & press 'Open Update Form'" required >
+                                                         </div>
+                                                         <p id=userUpdate></p>
+                                                         <div>
+                                                             <input type="button" class="submitBtn" value="Allow Access" id="updateUserBtn"/>
+                                                             <input type="button" id="userUpdateFormBtn"  value="Open Update Form" class="submitBtn" data-dismiss="modal" data-toggle="modal" data-target="#updateUserDetailsFormModal" style="background-color:Gray" disabled/>
+                                                             <input type="reset"  value="Reset" class="submitBtn" id="updateUserResetBtn"/>
+                                                         </div>
+                                                   </form>                                                  
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+<!--////////////////////////////////////////////////////UPDATE USER DETAILS FORM MODAL////////////////////////////////////////////////////////////////////////-->
+                
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateUserDetailsFormModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 >Update User Details Form<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="updateParticularUserForm">                                       
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="updateName" class="form-control" placeholder="Enter Name" disabled>
+                                        </div><br/>                              
+                                      
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-home"></i><label>&nbsp;Address&nbsp;</label></span>
+                                                <textarea rows='3' id="updateAddress" class="form-control" cols="40" placeholder="Enter Address (max. 100 Char)"></textarea>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-compass"></i><label>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="updateCity" class="form-control" placeholder="Enter City (max. 30 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-crosshairs"></i><label>&nbsp;&nbsp;State&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="updateState" class="form-control" placeholder="Enter State (max. 30 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-mobile"></i><label>&nbsp;&nbsp;Mobile&nbsp;</label></span>
+                                                <input type="text" id="updateMobile" class="form-control" placeholder="Mobile Number (Don't add 0 or +91)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;&nbsp;Email&nbsp;&nbsp;</label></span>
+                                                <input type="email" id="updateEmail" class="form-control" placeholder="Enter Email-id (max. 50 Chara)" required disabled>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-laptop"></i><label>&nbsp;&nbsp;&nbsp;Role&nbsp;&nbsp;</label></span>
+                                                <select name="Role" id="updateRole" class="form-control">
+                                                    <option value="Client" disabled>Client</option>
+                                                    <option value="Employee" selected>Employee</option>
+                                                    <option value="Manager">Manager</option>
+                                               </select>
+                                        </div><br/><p id=finaluserUpdate></p>                                      
+                                             <input type="button"  value="Update" class="submitBtn" id="finalUpdateUserBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+<!--////////////////////////////////////////////////////View USER MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View User Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="ViewParticularUser">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;By UserName &nbsp;&nbsp;</label></span>
+                                                             <input type="text" id="viewParticularUserUserName" class="form-control" placeholder="Enter UserName" required >
+                                                         </div>
+                                                         <p id=wrongUserName></p>
+                                                         <div>
+                                                             <input type="button"  value="Submit" class="submitBtn" id="viewParticularUserBtn"/>
+                                                             <input type="reset"  value="Reset" class="submitBtn" id="viewParticularUserBtnReset"/>
+                                                         </div>
+                                                   </form>
+                                                   <form role="form" id="ViewUserByRole">
+                                                      <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-laptop"></i><label>&nbsp;&nbsp;&nbsp;By Role&nbsp;&nbsp;</label></span>
+                                                <select name="Role" class="form-control" id="userRole">
+                                                    <option value="Client" selected>Client</option>
+                                                    <option value="Employee">Employee</option>
+                                                    <option value="Manager">Manager</option>
+                                               </select>
+                                        </div>
+                                                       <div>
+                                                           <input type="button"  value="Submit" class="submitBtn" id="viewRoleUserBtn" data-dismiss="modal" data-toggle="modal" data-target="#tableModal"/>
+                                                           <input type="reset"  value="Reset" class="submitBtn" id="viewRoleUserBtnReset"/>
+                                                       </div>
+                                                  </form>
+                                                   <form role="form" id="ViewAllUser">
+                                                       <div class="form-group input-group">
+                                                           <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;View All &nbsp;&nbsp;</label></span>
+                                                           <input type="text" class="form-control" placeholder="Click Submit to view list of all users" disabled>                                                    </div>
+                                                       <div>
+                                                           <input type="button"  value="Submit" class="submitBtn" id="viewAllUserBtn" data-dismiss="modal" data-toggle="modal" data-target="#tableModal"/>
+                                                           <input type="reset"  value="Reset" class="submitBtn" id="viewAllUserBtnReset"/>
+                                                       </div>
+                                                  </form>
+                                                     
+    <!-------------------------------------------TABLE FOR VIEW ALL USER------------------------------------------------------------------------------->
+                       <!--                              
+                                                     <br/>
+                 <div class="row mt" id="viewAllUserTable" style="display:none;">
+                    <div class="col-lg-12">
+                          <div class="content-panel">
+                              <h6 class="viewAllUser"><hr style="color:#43b1a9;background-color:#43b1a9;height:1px;border: none" /><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;All Users<hr style="color:#43b1a9;background-color:#43b1a9;height:1px;border: none" /></h6><br/>
+                              <section id="no-more-tables">
+                                  <table class="table table-bordered table-striped table-condensed cf">
+                                      <thead class="cf">
+                                      <tr id="viewUserHeader">
+                                          <th>Name</th>
+                                          <th>Sex</th>
+                                          <th>DOB</th>
+                                          <th>Age</th>
+                                          <th>Address</th>
+                                          <th>City</th>
+                                          <th>State</th>
+                                          <th>Mobile</th>
+                                          <th>Email</th>
+                                          <th>Role</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody id="viewAllUserTableBody"></tbody>                            
+                                  </table>
+                              </section>
+                          </div><!-- /content-panel -->
+                      </div><!-- /col-lg-12 -->
+                  </div><!-- /row -->  
+                                                     
+                                                     
+                                                     
+                                                     
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+            
+<!--////////////////////////////////////////////////////Delete User MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Delete User Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="DeleteParticularUser">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;UserName &nbsp;&nbsp;</label></span>
+                                                             <input id="deleteParticularUserUserName" type="text" class="form-control" placeholder="Enter UserName" required>
+                                                         </div>
+                                                          <p id=wrongUserNameDelete></p>
+                                                         <div>
+                                                             <input type="button"  value="Delete" class="submitBtn" id="deleteParticularUserBtn"/>
+                                                             <input type="reset"  value="Reset" class="submitBtn" id="deleteParticularUserBtnReset"/>
+                                                         </div>
+                                                   </form>                                                  
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                    
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                 
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////COMPANY////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->            
+                
+                
+                
+<!--////////////////////////////////////////////////////ADD Company MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Add New Company<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="addCompany">
+                                        
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;Name &nbsp;&nbsp;</label></span>
+                                                <input type="text" id="companyName" class="form-control" placeholder="Enter Company Name (max. 40 Char)" required>
+                                        </div><br/>
+                                     
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-compass"></i><label>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="companyCity" class="form-control" placeholder="Enter City (max. 30 Char)" required>
+                                        </div><br/>
+                                                                             
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-child"></i><label>&nbsp;&nbsp;Client&nbsp;</label></span>
+                                                <select name="Client" id="companyClient" class="form-control">
+                                                    
+                                               </select>
+                                        </div><br/>
+                                           <p id="addCompanyMessage"></p>           
+                                        <div>
+                                             <input type="button"  value="Submit" class="submitBtn" id="addCompanyBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+
+                
+<!--////////////////////////////////////////////////////View Company MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewCompanyModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View Company Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="ViewParticularCompany">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;By Name &nbsp;&nbsp;</label></span>
+                                                             <input type="text" id="viewParticularCompanyCompanyName" class="form-control" placeholder="Enter Company Name (max. 40 Char)" required>
+                                                         </div>
+                                                         <p id="viewCompanyMessage"></p>  
+                                                         <div>
+                                                             <input type="button" id="viewParticularCompanyBtn"  value="Submit" class="submitBtn"/>
+                                                             <input type="reset" value="Reset" id="viewParticularCompanyResetBtn"  class="submitBtn"/>
+                                                         </div>
+                                                   </form>
+                                                   <form role="form" id="ViewAllCompany">
+                                                       <div class="form-group input-group">
+                                                           <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;View All &nbsp;&nbsp;</label></span>
+                                                           <input type="text" class="form-control" placeholder="Click Submit to view list of all companies" disabled>                                                    </div>
+                                                       <div>
+                                                           <input type="button" id="viewAllCompanyBtn"  value="Submit" class="submitBtn" data-dismiss="modal" data-toggle="modal" data-target="#tableModal"/>
+                                                           <input type="reset" id="viewAllCompanyBtnReset"  value="Reset" class="submitBtn"/>
+                                                       </div>
+                                                  </form>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////COMPANY by COMPANYNAME DETAILS//////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="companynameDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-building fa-2x"></i>&nbsp;&nbsp;COMPANY Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" id="closeCompleteCompanyDetailModal" data-toggle="modal" data-target="#viewCompanyModal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" ><!--id="viewAllUserTable" style="display:none;"-->
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="companyByCompanyNameDetail" >
+                                                        <!--<tbody id="completeUserDetail"></tbody>  -->
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>                                
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+        </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+                
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////COMPLETE COMPANY DETAILS MODAL/////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+            <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="completeCompanyDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-building fa-2x"></i>&nbsp;&nbsp;COMPANY Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" id="closeCompleteCompanyDetailModal" data-toggle="modal" data-target="#tableModal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" ><!--id="viewAllUserTable" style="display:none;"-->
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="completeCompanyDetail" >
+                                                        <!--<tbody id="completeUserDetail"></tbody>  -->
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>                                
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+        </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        
+        
+<!--////////////////////////////////////////////////////Update Company MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateCompanyModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Update Company's Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="updateCompany">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;Name &nbsp;&nbsp;</label></span>
+                                                             <input type="text" class="form-control" id="updateCompanyName" required="on"  placeholder="Enter Company Name & press 'Open Update Form'" >
+                                                         </div>
+                                                         <p id="updateCompanyMessage"></p>
+                                                         <div>
+                                                             <input type="button" class="submitBtn" value="Allow Access" id="updateCompanyBtn"/>
+                                                             <input type="button" id="updateCompanyFormBtn"  value="Open Update Form" class="submitBtn"  data-dismiss="modal" data-toggle="modal" data-target="#updateCompanyDetailsFormModal"/>
+                                                             <input type="reset"  value="Reset" id="updateCompanyFormResetBtn" class="submitBtn"/>
+                                                         </div>
+                                                   </form>                                                  
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+<!--////////////////////////////////////////////////////UPDATE COMPANY DETAILS FORM MODAL/////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateCompanyDetailsFormModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Update Company's Details Form<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="updateParticularCompany">
+                                        
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;Name &nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" id="updateCompanyName1" placeholder="Enter Company Name" disabled>
+                                        </div><br/>
+                                     
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-compass"></i><label>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="updateCompanyCity" class="form-control" placeholder="Enter City" disabled>
+                                        </div><br/>
+                                                                             
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-child"></i><label>&nbsp;&nbsp;Client&nbsp;</label></span>
+                                                <select name="Client" id="updateCompanyClient" class="form-control"></select>                         
+                                               
+                                        </div><br/>
+                                              <p id=companyUpdate></p>        
+                                        <div>
+                                             <input type="button" id="finalCompanyUpdateBtn"  value="Update" class="submitBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+
+<!--////////////////////////////////////////////////////Delete Company MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="deleteCompanyModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Delete Company's Details<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="DeleteParticularCompany">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-users"></i><label>&nbsp;&nbsp;Name &nbsp;&nbsp;</label></span>
+                                                             <input type="text" class="form-control" id="deleteCompanyName" placeholder="Enter Company Name" required>
+                                                         </div>
+                                                         <p id="deleteCompanyMessage"></p>
+                                                         <div>
+                                                             <input type="button"  value="Delete" class="submitBtn" id="deleteCompanyBtn"/>
+                                                             <input type="reset"  value="Reset" class="submitBtn" id="deleteCompanyResetBtn"/>
+                                                         </div>
+                                                   </form>                                                  
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                
+                
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////DB TABLE MODAL//////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="dbTableModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6 class="viewAllUser"><i class="fa fa-cog fa-1x"></i>&nbsp;&nbsp;TABLE SCHEMA<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                                                      
+                                    <div class="row mt" ><!--id="viewAllUserTable" style="display:none;"-->
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                  <!--  <table class="table table-bordered table-striped table-condensed cf" id="viewTableSchemaBody" >
+                                                        <!--<tbody id="viewTableSchemaBody"></tbody>  -->
+                                                <!--    </table> -->
+                                                    <table class="table table-bordered table-striped table-condensed cf dbTables" id="viewTableSchemaTable">
+                                                      <thead class="cf">
+                                                      <tr id="viewTableSchemaHeader">
+                                                          <th>Column Name</th>
+                                                          <th>Data Type</th>
+                                                          <th>Maximum Size</th>                                                           
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody id="viewTableSchemaBody">                                                          
+                                                      </tbody>
+                                  </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>                                
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+        </div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+                  
+ <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                  
+                  
+        <script src="assets/js/jquery-1.10.2.js"></script>
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery-1.8.3.min.js"></script>
+    
+          <!-- BOOTSTRAP SCRIPTS -->
+	   <script src="assets/js/admin-dashboard.js"></script>
+
+        
+            <!-- METISMENU SCRIPTS -->
+        <script src="assets/js/jquery.metisMenu.js"></script>
+       
+            <!-- MORRIS CHART SCRIPTS -->
+         <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+         <script src="assets/js/morris/morris.js"></script>
+         
+            <!-- CUSTOM SCRIPTS -->
+        <script src="assets/js/custom.js"></script>
+        
+           
+    
+         <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery-1.8.3.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
+      <!--  <script src="assets/js/bootstrap.min.js"></script>-->
+   
+    <!--common script for all pages-->
+    
+    
+    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+ 
+    <!--script for this page-->
+   
+	<script src="assets/js/zabuto_calendar.js"></script>	
+	
+	
+	<script type="application/javascript">
+        $(document).ready(function () {
+            $("#date-popover").popover({html: true, trigger: "manual"});
+            $("#date-popover").hide();
+            $("#date-popover").click(function (e) {
+                $(this).hide();
+            });
+        
+            $("#my-calendar").zabuto_calendar({
+                action: function () {
+                    return myDateFunction(this.id, false);
+                },
+                action_nav: function () {
+                    return myNavFunction(this.id);
+                },
+                ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },
+                
+            });
+        });
+        
+        
+        function myNavFunction(id) {
+            $("#date-popover").hide();
+            var nav = $("#" + id).data("navigation");
+            var to = $("#" + id).data("to");
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+        }       
+        
+     
+        
+
+
+                
+    </script>            
+   </body>
+</html>

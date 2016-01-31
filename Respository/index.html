@@ -1,0 +1,67 @@
+    <!Doctype html>
+    <html>
+        <head>
+             <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Admin Dashboard</title>
+            <!-- BOOTSTRAP STYLES-->
+            <link href="assets/css/bootstrap.css" rel="stylesheet" />
+             <!-- FONTAWESOME STYLES-->
+            <link href="assets/css/font-awesome.css" rel="stylesheet" />
+             <!-- MORRIS CHART STYLES-->
+            <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+                <!-- CUSTOM STYLES-->
+            <link href="assets/css/custom.css" rel="stylesheet" />
+            <link href="assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+             <!-- GOOGLE FONTS-->
+           <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+            <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+            
+            <script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>$(document).ready(function(c) {
+	$('.alert-close').on('click', function(c){
+		$('.message').fadeOut('slow', function(c){
+	  		$('.message').remove();
+		});
+	});	  
+});
+</script>
+        </head>
+
+        <body>
+            <nav class="navbar navbar-default navbar-cls-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">[[[[COMPANY]]]]</a>
+                </div>
+
+                <div class="message warning">
+    <div class="inset">
+        <div class="login-head">
+            <h1>Login Form</h1>
+             <div class="alert-close"> </div> 			
+        </div>
+            <form>
+                <li>
+                    <input type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}"><a href="#" class=" icon user"></a>
+                </li>
+                    <div class="clear"> </div>
+                <li>
+                    <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"> <a href="#" class="icon lock"></a>
+                </li>
+                <div class="clear"> </div>
+                <div class="submit">
+                    <input type="submit" onclick="myFunction()" value="Sign in" >
+                    <h4><a href="#">Lost your Password ?</a></h4>
+                              <div class="clear">  </div>	
+                </div>
+
+            </form>
+            </div>					
+        </div>
+        </div>
+        <div class="clear"> </div>
+
+            </nav>
+        </body>
+    </html>

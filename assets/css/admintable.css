@@ -1,0 +1,59 @@
+/* Responsive Table for Admin */
+
+h6{
+    color: #6C496F !important;
+    text-decoration-line: underline !important;
+    font-size: 40px !important;
+    font-family: Monotype Corsiva !important;
+    font-kerning: auto !important;
+    font-variant: normal !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    } !important
+
+td{
+    text-align: center !important;
+   
+}
+
+
+.cf{
+    background-color: #C3C3E5;
+    text-align: center;
+    
+}
+
+.oddRow > td{   
+    background-color: #9C8AA5 !important;
+    color: #FFF;
+    
+    text-align: center;
+}
+
+#adminTableHeader {
+    
+    background-color: #43b1a9;
+    
+
+}
+
+#adminTableHeader > th {
+    
+    text-align: center;
+    font-weight: bold;
+    
+}
+
+
+h6.viewAllUser{
+    color: #6C496F !important;
+    text-decoration-line: underline !important;
+    font-size: 20px !important;
+    font-family: Monotype Corsiva !important;
+    font-kerning: auto !important;
+    font-variant: normal !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    } !important
+
+

@@ -1,0 +1,837 @@
+<!Doctype html>
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Employee Dashboard</title>
+            <!-- BOOTSTRAP STYLES-->
+            <link href="assets/css/bootstrap.css" rel="stylesheet" />            
+            <!-- FONTAWESOME STYLES-->
+            <link href="assets/css/font-awesome.css" rel="stylesheet" />
+            <link href="assets/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />            
+            <!-- MORRIS CHART STYLES-->
+            <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />            
+            <!-- CUSTOM STYLES-->
+            <link href="assets/css/custom.css" rel="stylesheet" />            
+            <!-- Table STYLES-->            
+            <link href="assets/css/table-responsive.css" rel="stylesheet">           
+            <link href="assets/css/style.css" rel="stylesheet" />            
+            <!-- GOOGLE FONTS-->
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+            <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+            <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
+            
+           <style>
+                h5{
+                    color:#fff;
+                    font-size: 20px;                
+                }
+                hr{
+                    color:#6C496F;
+                    border-color: #6C496F;
+                    background-color: #6C496F;
+                    border-width: 3px;
+                }             
+           </style>
+           <script type="text/javascript">
+                if (sessionStorage.getItem("Login") != "true"  || sessionStorage.getItem("Role") != "Employee") {                    
+                    window.location="http://localhost:7000/index.html";
+                 }             
+           </script>
+            
+        </head>
+        <body>
+             <nav class="navbar navbar-default navbar-cls-top header" role="navigation" style="margin-bottom: 0">
+                <div class="navbar- header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand companyLogo" href="EmployeeDashboard.html"></a>
+                </div>
+                <div style="color:white; padding:15px 50px 5px 50px; float:right; font:16px;">
+<!--                    [[can show last acess here..!]]--> &nbsp;
+                    <a id="tempLock" href="lock_screen.html"><i class="fa fa-lock fa-2x"></i></a> &nbsp;
+                    <a class="btn btn-danger square-btn-adjust" id="logoutBtn">Logout</a>
+                </div>
+            </nav>
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        <li class="text-center">
+                            <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                        </li>
+                        <li>
+                            <a class="active-menu"  href="EmployeeDashboard.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        </li>
+
+                         <li>
+                            <a href="#message-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-envelope fa-3x"></i> Messages<span class="fa arrow"></span></a>
+                            <ul id="message-menu" class="nav nav-second-level nav-list collapse">
+                                <li>
+                                    <a data-toggle="modal" id="newMessageModalBtn" href="#NewMessageModal"><i class="fa fa-pencil fa-2x"></i>New</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#viewMessageModal" id="viewInboxBtn"><i class="fa fa-inbox fa-2x"></i>Inbox</a>
+                                </li>                                
+                          </ul>
+                    
+                         </li>
+                        
+                         <li>
+                            <a href="#visit-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-road fa-3x"></i> Visits<span class="fa arrow"></span></a>
+                            <ul id="visit-menu" class="nav nav-second-level nav-list collapse">
+                                <li>
+                                    
+                                    <a data-toggle="modal" id="updateVisitModalBtn" href="#updateVisitModal"><i class="fa fa-pencil-square-o fa-2x"></i>Update</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="viewVisitTableModal" id="viewVisit"><i class="fa fa-twitch fa-2x"></i>View</a>
+                                </li>                                
+<!--
+                                <li>
+                                    <a data-toggle="modal" href="" id="viewAllVisit"><i class="fa fa-file-text fa-2x"></i>View All</a>
+                                </li>
+-->
+                            </ul>
+                         </li>                    
+                       
+                        <li>
+                            <a data-toggle="modal" id="feedbackModalBtn" href="#feedbackModal"><i class="fa fa-file-text fa-3x"></i>&nbsp;&nbsp; Feedback Reports</a>
+                            
+                        </li>
+                        <li><!-- CALENDAR-->            
+                            <div id="calendar" class="mb">
+                                <div class="panel green-panel no-margin">
+                                    <div class="panel-body">
+                                        <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                            <div class="arrow"></div>
+                                            <h3 class="popover-title" style="disadding: none;"></h3>
+                                            <div id="date-popover-content" class="popover-content"></div>
+                                        </div>
+                                        <div id="my-calendar" class="calendar-border"></div>
+                                    </div>
+                                </div>
+                            </div><!-- / calendar -->
+                       </li>
+                     </ul>
+                 </ div>
+            </nav>
+            <div id="page-wrapper" >
+              <div id="page-inner">
+                <div class="row" id="weather-header" >
+                  <div>
+                    <div class="col-md-10">
+                        <h2>Employee Dashboard</h2>   
+                        <h5>Welcome <b id="nameX"></b>, Love to see you back.</h5>
+                    </div>
+                    <div class="col-md-2">
+                       <p style="display: block !important; width: 160px; text-align: center; font-family: sans-serif; font-size: 12px;"><a href="http://weathertemperature.com/forecast/?q=Delhi,Delhi,India" title="Delhi, Delhi, India Weather Forecast" onclick="this.target='_blank'"><img src="http://widget.addgadgets.com/weather/v1/?q=Delhi,Delhi,India&amp;s=2&amp;u=2" alt="Weather temperature in Delhi, Delhi, India" width="160" height="102" style="border:0" /></a><br /><a href="http://weathertemperature.com/" title="Get latest Weather Forecast updates" style="font-family: sans-serif; font-size: 12px" onclick="this.target='_blank'">Weather Forecast</a></p>                         
+                    </div>
+                  </div>
+                  <hr/>
+              </div>   
+              <hr style="color:#6C496F;"/>                    
+              <div class="row">
+                <br>
+                <div class="col-md-3 col-sm-6 col-xs-6" >           
+			         <div class="panel panel-back noti-box">
+                        <span class="icon-box bg-color-red set-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </span>
+                        <div class="text-box" >
+                            <p class="main-text" id="notifMessage">0</p>
+                            <p class="main-text">Messages</p>
+                            <p class="text-muted">Inbox</p>
+                        </div>
+                    </div>
+		          </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">           
+			         <div class="panel panel-back noti-box">
+                        <span class="icon-box bg-color-green set-icon">
+                            <i class="fa fa-bars"></i>
+                        </span>
+                        <div class="text-box" >
+                            <p class="main-text" id="notifTask">0 Tasks</p>
+                            <p class="main-text">Pending</p>
+                            <p class="text-muted">Today</p>
+                        </div>
+                    </div>
+		         </div>
+                 <div class="col-md-3 col-sm-6 col-xs-6">           
+			         <div class="panel panel-back noti-box">
+                        <span class="icon-box bg-color-blue set-icon">
+                            <i class="fa fa-bell-o"></i>
+                        </span>
+                        <div class="text-box" >
+                            <p class="main-text" id="notifVisit">0 Visits</p>
+                            <p class="main-text">Scheduled</p>
+                            <p class="text-muted">Today </p>
+                        </div>
+                    </div>
+		        </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">           
+			         <div class="panel panel-back noti-box">
+                        <span class="icon-box bg-color-brown set-icon">
+                            <i class="fa fa-file"></i>
+                        </span>
+                        <div class="text-box" >
+                            <p class="main-text" id="notifVisitTomorrow">0 Visits</p>
+                            <p class="main-text">Scheduled</p>
+                            <p class="text-muted">Tomorrow </p>
+                        </div>
+                    </div>
+		        </div>
+			 </div>
+                  
+          </div>
+        </div>
+            
+            
+            
+      
+ <!---------------------------------------------------------------------------------------------------------------------------------------------------------
+     --------------------------------------------------------------------------------------------------------------------------------------------------------
+    //////////////////////////////////////////////////////////////MODALS////////////////////////////////////////////////////////////////////////////////////
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------------------------------------------------------------------------------->           
+                       
+            
+            
+            
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////MESSAGE////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->            
+                
+                
+                
+<!--////////////////////////////////////////////////////New Message MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="NewMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>New Message<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="newMessage">                                                                   
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <select type="text" class="form-control" id="toMessage" disabled>
+                                                    
+                                               </select>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-briefcase"></i><label>&nbsp;Subject&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" placeholder="Enter Name (max. 50 Char)" id="MsgSubject" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;Message  </label></span>
+                                                <textarea rows='7' class="form-control" cols="40" placeholder="Enter Address (max. 1000 Char)" id="message" required></textarea>
+                                        </div><br/>
+                                        <p id="messgaeMsg"></p>          
+                                        <div>
+                                             <input type="button"  value="Send" class="submitBtn" id="addMessgaeBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+            
+<!--////////////////////////////////////////////////////View Message MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Inbox<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                         <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                   
+                                    <div class="row mt" id="viewInboxTable" >
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                             
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewInboxHeader">
+                                                                <th>From</th>
+                                                                <th>Subject</th>                                                          
+                                                                <th>Date</th>                                                              
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewInboxBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+<!--////////////////////////////////////////////////////View Inbox Message MODAL///////////////////////////////////////////////////////////////////////////-->
+                          
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewInboxMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View Message<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal" data-target="#viewMessageModal" ></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="viewInboxMessage">                                                                   
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" id="viewFromMessage" disabled >
+                                                    
+                                               
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-briefcase"></i><label>&nbsp;Subject&nbsp;&nbsp;</label></span>
+                                                <input type="text" class="form-control" placeholder="Enter Name (max. 50 Char)" id="viewMsgSubject" required disabled >
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;Message  </label></span>
+                                                <textarea rows='7' class="form-control" cols="40" placeholder="Enter Address (max. 1000 Char)" id="viewMessage" required disabled></textarea>
+                                        </div><br/>                                                
+                                       
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////VISITS//////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+            
+            
+            
+<!--///////////////////////////////////////////////////////////UPDATE Visits///////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  
+            
+            
+                                           
+      <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateVisitModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View Visit<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="updateVisit">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-tasks"></i><label>&nbsp;&nbsp;Visist Id &nbsp;&nbsp;</label></span>
+                                                             <input type="text" id="VisitId" class="form-control" placeholder="Enter Visit Id" required>
+                                                         </div>
+                                                         <p id="updateVisitMessage"></p>  
+                                                         <div>
+                                                             <input type="button" id="updateVisitBtn"  value="Submit" class="submitBtn" />
+                                                             <input type="reset" value="Reset" id="updateVisitResetBtn"  class="submitBtn"/>
+                                                         </div>
+                                                   </form>                                                   
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+            
+            
+            
+            
+            
+            
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+    
+<div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateVisitDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">                       
+                        <div class="modal-header" style="background:#37bc9b">
+                        <b><h6 class="viewAllUser"><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;Task Details<div style="float:right; margin-right:10px">
+                         <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal" data-target="" id="closeTableModal"></i></a>
+
+                       </div></h6></b>
+                      </div>
+                          
+                          
+                        <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                   
+                                    <div class="row mt" id="updateVisitDetailTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                                                
+                                                <section id="no-more-tables">                                                  
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="taskDetailTable">
+                                                         <thead class="cf">
+                                                            <tr id="updateTaskDetailHeader">
+                                                                <th>Task</th>
+                                                                <th>Status</th>                                                                           
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="updateTaskDetailTableBody"></tbody>   
+                                                                                
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>            
+            
+            
+            
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->   
+            
+            
+    <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>View Visit<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times"  data-dismiss="modal"></i></a>                          
+                           </div></h6></b>
+                          </div>                          
+                          <div class="modal-body">
+                            <div class="row-fluid">
+                                <div class="dialog">
+                                    <div class="block-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                 <div class="row-fluid">
+                                                     <form role="form" id="updateTask">
+                                                         <div class="form-group input-group">
+                                                             <span class="input-group-addon"><i class="fa fa-tasks"></i><label>&nbsp;&nbsp;Visist Id &nbsp;&nbsp;</label></span>
+                                                             <select name="Task" id="taskStatus" class="form-control">
+                                                                <option value="PENDING" selected>PENDING</option>
+                                                                <option value="COMPLETED">COMPLETED</option>                                                 
+                                                           </select>
+                                                         </div>
+                                                         <p id="updateTaskMessage"></p>  
+                                                         <div>
+                                                             <input type="button" id="updateTaskBtn"  value="Submit" class="submitBtn" />                                                             
+                                                         </div>
+                                                   </form>                                                   
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+            
+            
+            
+            
+  <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->           
+            
+            
+<!--///////////////////////////////////////////////////////View Pending Visits///////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    
+
+            <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewVisitTableModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">                       
+                        <div class="modal-header" style="background:#37bc9b">
+                        <b><h6 class="viewAllUser"><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;VISITS<div style="float:right; margin-right:10px">
+                         <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal" id="closeViewTableModal"></i></a>
+                       
+
+                       </div></h6></b>
+                      </div>
+                          
+                          
+                        <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                   
+                                    <div class="row mt" id="viewVisitTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                                                
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf">
+                                                        <thead class="cf">
+                                                            <tr id="viewVisitHeader">
+                                                                <th>Visit Id</th>                                                                             
+                                                                <th>Company Name</th>
+                                                                <th>Allocation Date</th>
+                                                                <th>Due Date</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewVisitTableBody"></tbody>                            
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+            
+            
+ 
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!--/////////////////////////////////////////////////////VIEW COMPLETE VISIT DETAILS///////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="viewVisitDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">                       
+                        <div class="modal-header" style="background:#37bc9b">
+                        <b><h6 class="viewAllUser"><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;VISIT Details<div style="float:right; margin-right:10px">
+                         <a><i class="fa fa-times" data-dismiss="modal" data-toggle="modal" data-target="#viewVisitTableModal" id="closeTableModal"></i></a>
+
+                       </div></h6></b>
+                      </div>
+                          
+                          
+                        <div class="modal-body userTables">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">                                   
+                                    <div class="row mt" id="viewVisitDetailTable" style="display:none;">
+                                        <div class="col-lg-12">
+                                            <div class="content-panel">                                                
+                                                <section id="no-more-tables">
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="visitCompleteDetailTable">
+                                                        <thead class="cf">
+                                                            <tr id="viewVisitDetailHeader">
+                                                                <th>Visit Id</th>
+                                                                <th>Employee Name</th>                                                          
+                                                                <th>Company Name</th>
+                                                                <th>Allocation Date</th>
+                                                                <th>Due Date</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewVisitDetailTableBody"></tbody>                            
+                                                    </table>
+                                                    <table class="table table-bordered table-striped table-condensed cf" id="taskDetailTable">
+                                                         <thead class="cf">
+                                                            <tr id="viewTaskDetailHeader">
+                                                                <th>Task</th>
+                                                                <th>Status</th>                                                                           
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody id="viewTaskDetailTableBody"></tbody>   
+                                                                                
+                                                    </table>
+                                              </section>
+                                         </div><!-- /content-panel -->
+                                      </div><!-- /col-lg-12 -->
+                                  </div><!-- /row -->
+                                </div>
+                            </div>
+                        </div>                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>            
+            
+            
+            
+            
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->            
+            
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////FEEDBACK REPORT/////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->            
+                
+                
+                
+<!--////////////////////////////////////////////////////New Feedback MODAL/////////////////////////////////////////////////////////////////////////////////-->
+                          
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background:#37bc9b">
+                          <b><h6>Feedback Report<div style="float:right; margin-right:10px">
+                             <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+                          
+                          </div></h6></b>
+                        </div>
+                          
+                        <div class="modal-body">
+
+            <div class="row-fluid">
+                <div class="dialog">
+                    <div class="block-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                 <div class="row-fluid">
+
+
+                                 <form role="form" id="newFeedback">                                                                   
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                            <select type="text" id="managerName" class="form-control" disabled></select>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-briefcase"></i><label>&nbsp;Subject&nbsp;&nbsp;</label></span>
+                                                <input type="text" id="subject" class="form-control" placeholder="Enter Subject (max. 50 Char)" required>
+                                        </div><br/>
+                                        <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;Feedback  </label></span>
+                                                <textarea rows='7' id="feedback" class="form-control" cols="40" placeholder="Enter Feedback (max. 500 Char)" required></textarea>
+                                        </div><br/>
+                                        <p id="feedbackMessage"></p>        
+                                        <div>
+                                             <input type="button"  value="Send Feedback" class="submitBtn" id="addFeedbackBtn"/><br/>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+</div>
+                
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            
+            
+            
+ <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/jquery-1.8.3.min.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="assets/js/employee-dashboard.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+<!-- MORRIS CHART SCRIPTS -->
+<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="assets/js/morris/morris.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/jquery-1.8.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<!--common script for all pages-->
+<script src="assets/js/zabuto_calendar.js"></script>	
+<script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+            
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#date-popover").popover({html: true, trigger: "manual"});
+        $("#date-popover").hide();
+        $("#date-popover").click(function (e) {
+            $(this).hide();
+            });
+        $("#my-calendar").zabuto_calendar({
+            action: function () {
+                return myDateFunction(this.id, false);
+                    },
+                    action_nav: function () {
+                    return myNavFunction(this.id);
+                        },
+                    ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },                
+            });
+        });        
+            function myNavFunction(id) {
+            $("#date-popover").hide();
+            var nav = $("#" + id).data("navigation");
+            var to = $("#" + id).data("to");
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+        }           
+</script>            
+</body>
+</html>

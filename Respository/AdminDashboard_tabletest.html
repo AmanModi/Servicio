@@ -1,0 +1,461 @@
+<!Doctype html>
+  <html>
+     <head>
+       <meta charset="utf-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin Dashboard</title>
+         <!-- BOOTSTRAP STYLES-->
+         <link href="assets/css/bootstrap.css" rel="stylesheet" />
+
+         <!-- FONTAWESOME STYLES-->
+         <link href="assets/css/font-awesome.css" rel="stylesheet" />
+         <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+         <!-- MORRIS CHART STYLES-->
+         <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+
+         <!-- CUSTOM STYLES-->
+         <link href="assets/css/custom.css" rel="stylesheet" />
+         <link href="assets/css/style-responsive.css" rel="stylesheet">
+         <link href="assets/css/table-responsive.css" rel="stylesheet">         
+         <link href="assets/css/style.css" rel="stylesheet" />
+         <link href="assets/css/admintable.css" rel="stylesheet" />
+
+         <!-- GOOGLE FONTS-->
+         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+         <!-- CALENDAR-->
+
+
+        <!--external css-->
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
+
+        <!-- Custom styles for this template -->
+
+        <!-- CALENDAR-->
+        <style>
+            h5{
+            color:#fff;
+            font-size: 20px;                
+            }
+          
+            hr{
+            color:#6C496F;
+            border-color: #6C496F;
+            background-color: #6C496F;
+            border-width: 3px;
+            }
+
+        </style>
+     </head>
+
+      <body>
+         <div id="wrapper">
+            <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+                <div class="navbar- header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="AdminDashboard.html">[[[[COMPANY]]]]</a>
+                    </div>
+                    <div style="color:white; padding:15px 50px 5px 50px; float:right; font:16px;">
+                        [[can show last acess here..!]] &nbsp;
+                        <a href="lock_screen.html"><i class="fa fa-lock fa-2x"></i></a> &nbsp;
+                    <a href="index.html" class="btn btn-danger square-btn-adjust">Logout</a>
+                    </div>
+                </nav>
+
+                 <!-- /. NAV TOP  -->
+                    <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                            <li class="text-center">
+                                <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                            </li>
+                            <li>
+                                <a class="active-menu"  href="AdminDashboard.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                            </li>
+
+
+                            <li>
+                                <a href="#"><i class="fa fa-envelope fa-3x"></i> Messages</a>
+                            </li>
+
+                            <li>
+                                <a href="#company-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-building fa-4x"></i> Company<span class="fa arrow"></span></a>
+                                <ul id="company-menu" class="nav nav-second-level nav-list collapse">
+                                    <li>
+                                        <a data-toggle="modal" href="#addCompanyModal"><i class="fa fa-plus fa-2x"></i>Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-file-text fa-2x"></i>View</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-pencil fa-2x"></i>Update</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-times fa-2x"></i>Delete</a>
+                                    </li>
+                              </ul>
+                            </li>
+                            <li>
+                                <a href="#user-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-users fa-3x"></i>&nbsp;&nbsp; Users<span class="fa arrow"></span></a>
+                                <ul id="user-menu" class="nav nav-second-level nav-list collapse">
+                                    <li>
+                                        <a data-toggle="modal" href="#addUserModal"><i class="fa fa-plus fa-2x"></i>Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-file-text fa-2x"></i>View</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-pencil fa-2x"></i>Update</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-times fa-2x"></i>Delete</a>                                                    
+                                    </li>
+                                </ul>
+                            </li>  
+                            <li>
+
+
+                         <!-- CALENDAR-->
+                            <div id="calendar" class="mb">
+                                <div class="panel green-panel no-margin">
+                                    <div class="panel-body">
+                                        <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                            <div class="arrow"></div>
+                                            <h3 class="popover-title" style="disadding: none;"></h3>
+                                            <div id="date-popover-content" class="popover-content"></div>
+                                        </div>
+                                        <div id="my-calendar"></div>
+                                    </div>
+                                </div>
+                            </div><!-- / calendar -->
+
+
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                 <div id="page-wrapper" >
+                    <div id="page-inner">
+                        <div class="row" id="weather-header" >
+                            <div >
+                            <div class="col-md-10">
+                             <h2>Admin Dashboard</h2>   
+                                <h5>Welcome [[NAME]] , Love to see you back.</h5>
+                            </div>
+                            <div class="col-md-2">
+                             <p style="display: block !important; width: 160px; text-align: center; font-family: sans-serif; font-size: 12px;"><a href="http://weathertemperature.com/forecast/?q=Delhi,Delhi,India" title="Delhi, Delhi, India Weather Forecast" onclick="this.target='_blank'"><img src="http://widget.addgadgets.com/weather/v1/?q=Delhi,Delhi,India&amp;s=2&amp;u=2" alt="Weather temperature in Delhi, Delhi, India" width="160" height="102" style="border:0" /></a><br /><a href="http://weathertemperature.com/" title="Get latest Weather Forecast updates" style="font-family: sans-serif; font-size: 12px" onclick="this.target='_blank'">Weather Forecast</a></p>
+
+                                </div>
+                                </div>
+                            <hr/>
+                        </div>   
+                        <hr style="color:#6C496F;"/>
+                         <!-- /. ROW  -->
+
+
+
+                        <div class="row">
+                            <br>
+                    <div class="col-md-3 col-sm-6 col-xs-6">           
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-red set-icon">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                    <div class="text-box" >
+                        <p class="main-text">120 New</p>
+                        <p class="text-muted">Messages</p>
+                    </div>
+                 </div>
+                 </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">           
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-green set-icon">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <div class="text-box" >
+                        <p class="main-text">30 Tasks</p>
+                        <p class="text-muted">Remaining</p>
+                    </div>
+                 </div>
+                 </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">           
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-blue set-icon">
+                        <i class="fa fa-bell-o"></i>
+                    </span>
+                    <div class="text-box" >
+                        <p class="main-text">240 New</p>
+                        <p class="text-muted">Notifications</p>
+                    </div>
+                 </div>
+                 </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">           
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-brown set-icon">
+                        <i class="fa fa-rocket"></i>
+                    </span>
+                    <div class="text-box" >
+                        <p class="main-text">3 Orders</p>
+                        <p class="text-muted">Pending</p>
+                    </div>
+                 </div>
+                 </div>
+                </div>
+                        
+                        <!--////////////////////////////////////////////////////////TABLE/////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<br/><br/><br/>
+                 <div class="row mt">
+                    <div class="col-lg-12">
+                          <div class="content-panel">
+                              <h3><hr style="color:#43b1a9;background-color:#43b1a9;height:3px;border: none" /><i class="fa fa-table fa-1x"></i>&nbsp;&nbsp;Table Infos<hr style="color:#43b1a9;background-color:#43b1a9;height:3px;border: none" /></h3><br/><br/>
+                              <section id="no-more-tables">
+                                  <table class="table table-bordered table-striped table-condensed cf">
+                                      <thead class="cf">
+                                      <tr id="adminTableHeader">
+                                          <th>S. No</th>
+                                          <th>Table Name</th>
+                                          <th class="numeric">Number of Enteries</th>
+                                          <th class="numeric">Change</th>                                          
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr class="oddRow">
+                                          <td data-title="S. No">1</td>
+                                          <td data-title="Company">USER Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                    
+                                       <tr>
+                                          <td data-title="S. No">2</td>
+                                          <td data-title="Company">Company Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr class="oddRow">
+                                          <td data-title="S. No">3</td>
+                                          <td data-title="Company">Manager Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr>
+                                          <td data-title="S. No">4</td>
+                                          <td data-title="Company">Visit Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>
+                                       <tr class="oddRow">
+                                          <td data-title="S. No">5</td>
+                                          <td data-title="Company">Task Table</td>
+                                          <td class="numeric" data-title="Number of Enteries">3</td>
+                                          <td class="numeric" data-title="Change">-0.01</td>                                          
+                                      </tr>                                     
+                                      </tbody>
+                                  </table>
+                              </section>
+                          </div><!-- /content-panel -->
+                      </div><!-- /col-lg-12 -->
+                  </div><!-- /row -->
+
+
+
+
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+
+
+                     </div>
+               </div>
+             </div>
+
+
+    
+
+
+    <!---------------------------------------------------------------------------------------------------MODALS---------------------------------------------------
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+      <!--////////////////////////////////////////////////////ADD USER MODAL/////////////////////////////////////////////////////////////////////////////////-->
+
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header" style="background:#37bc9b">
+                              <b><h1 >Add a New USER<div style="float:right; margin-right:10px">
+                                 <a><i class="fa fa-times" data-dismiss="modal"></i></a>
+
+                              </div></h1></b>
+                            </div>
+
+                            <div class="modal-body">
+
+                <div class="row-fluid">
+                    <div class="dialog">
+                        <div class="block-body">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                     <div class="row-fluid">
+
+
+                                     <form role="form" id="addUser">
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-tag"></i><label>&nbsp;UserName</label></span>
+                                                    <input type="text" class="form-control" placeholder="Enter UserName (max. 20 Char)" autofocus="on" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i><label>&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                    <input type="text" class="form-control" placeholder="Enter Name (max. 30 Char)" required>
+                                            </div><br/>
+                                            <div class="form-group input-group" >
+                                                    <span class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i><label>&nbsp;&nbsp;Gender&nbsp;</label></span>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="Sex" value="Male"><x style="color:#6D4A70">&nbsp;Male</x> &nbsp;&nbsp;&nbsp;
+                                                    <input type="radio" name="Sex" value="Female"><x style="color:#6D4A70">&nbsp;Female</x>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-puzzle-piece"></i><label>&nbsp;&nbsp;&nbsp;DOB&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                    <input type="date" class="form-control" placeholder="Enter Date of Birth" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-home"></i><label>&nbsp;Address&nbsp;</label></span>
+                                                    <textarea rows='3' class="form-control" cols="40" placeholder="Enter Address (max. 100 Char)"></textarea>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-compass"></i><label>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;&nbsp;</label></span>
+                                                    <input type="text" class="form-control" placeholder="Enter City (max. 30 Char)" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-crosshairs"></i><label>&nbsp;&nbsp;State&nbsp;&nbsp;</label></span>
+                                                    <input type="text" class="form-control" placeholder="Enter State (max. 30 Char)" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-mobile"></i><label>&nbsp;&nbsp;Mobile&nbsp;</label></span>
+                                                    <input type="text" class="form-control" placeholder="Mobile Number (Don't add 0 or +91)" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-envelope"></i><label>&nbsp;&nbsp;Email&nbsp;&nbsp;</label></span>
+                                                    <input type="email" class="form-control" placeholder="Enter Email-id (max. 50 Chara)" required>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-laptop"></i><label>&nbsp;&nbsp;&nbsp;Role&nbsp;&nbsp;</label></span>
+                                                    <select name="Role" class="form-control">
+                                                        <option value="Client" selected>Client</option>
+                                                        <option value="Employee">Employee</option>
+                                                        <option value="Manager">Manager</option>
+                                                   </select>
+                                            </div><br/>
+                                            <div class="form-group input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-lock"></i><label>&nbsp;Password</label></span>
+                                                    <input type="password" class="form-control" placeholder="Enter Password (max. 15 Char)" required>
+                                            </div>    <br/>                      
+                                            <div>
+                                                 <input type="submit"  value="Submit" class="submitBtn"/><br/>
+                                           </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+    </div>
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+
+  
+
+
+     <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+            <script src="assets/js/jquery-1.10.2.js"></script>
+            <script src="assets/js/jquery.js"></script>
+            <script src="assets/js/jquery-1.8.3.min.js"></script>
+            <!-- BOOTSTRAP SCRIPTS -->
+            <!-- METISMENU SCRIPTS -->
+            <script src="assets/js/jquery.metisMenu.js"></script>
+            <!-- MORRIS CHART SCRIPTS -->
+            <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+            <script src="assets/js/morris/morris.js"></script>
+            <!-- CUSTOM SCRIPTS -->
+            <script src="assets/js/custom.js"></script>
+            <script src="assets/js/jquery.js"></script>
+            <script src="assets/js/jquery-1.8.3.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
+            <!--  <script src="assets/js/bootstrap.min.js"></script>-->
+          
+
+            <!--common script for all pages-->
+            <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+
+            <!--script for this page-->
+
+            <script src="assets/js/zabuto_calendar.js"></script>	
+
+
+
+            <script type="application/javascript">
+              $(document).ready(function () {
+                $("#date-popover").popover({html: true, trigger: "manual"});
+                $("#date-popover").hide();
+                $("#date-popover").click(function (e) {
+                    $(this).hide();
+                });
+
+                $("#my-calendar").zabuto_calendar({
+                    action: function () {
+                        return myDateFunction(this.id, false);
+                    },
+                    action_nav: function () {
+                        return myNavFunction(this.id);
+                    },
+                    ajax: {
+                        url: "show_data.php?action=1",
+                        modal: true
+                    },
+                    legend: [
+                        {type: "text", label: "Special event", badge: "00"},
+                        {type: "block", label: "Regular event", }
+                    ]
+                });
+            });
+
+
+            function myNavFunction(id) {
+                $("#date-popover").hide();
+                var nav = $("#" + id).data("navigation");
+                var to = $("#" + id).data("to");
+                console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+            }
+         </script>
+    </body>
+</html>
